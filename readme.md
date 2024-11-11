@@ -22,7 +22,7 @@
 1. **Clone** repositori ini:
 
    ```bash
-   git clone https://github.com/username/Twalkcare.git
+   git clone https://github.com/Alhaiza/Twalkcare.git
    cd Twalkcare
    ```
 
