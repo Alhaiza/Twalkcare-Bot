@@ -137,7 +137,27 @@ const menuCommands = {
   "Command Kontak Rumah Sakit": [
     "/kontak_rs_umum: Menampilkan daftar rumah sakit umum di Kalimantan Barat beserta alamat dan nomor telepon.",
   ],
+  "Command lainnya": ["/command_lain"],
 };
+
+async function handleKontakRSUmum(message) {
+  const prompt = `Berikan daftar rumah sakit umum di Kalimantan Barat, Indonesia, lengkap dengan alamat dan nomor telepon yang dapat dihubungi.`;
+
+  // Memanggil fungsi untuk menghasilkan jawaban dari AI
+  await generate(prompt, message);
+}
+
+// Fungsi baru untuk menangani perintah /command_lain dengan input fleksibel
+async function handleCommandLain(message) {
+  const prompt = message.body.replace("/command_lain ", "").trim();
+  if (prompt) {
+    await generate(prompt, message);
+  } else {
+    await message.reply(
+      "Silakan masukkan perintah tambahan setelah /command_lain. Contoh: /command_lain Saya ingin tahu tentang cara menjaga kesehatan mata."
+    );
+  }
+}
 
 // Functions for handling each specific command
 async function handleIngatkanObat(message, namaObat, waktu) {
@@ -268,13 +288,17 @@ client.on("message", async (message) => {
     await showMainMenu(message);
   } else if (/^\d+$/.test(message.body)) {
     const menuNumber = parseInt(message.body);
-    if (menuNumber >= 1 && menuNumber <= 12) {
+    if (menuNumber === 12) {
+      await handleKontakRSUmum(message);
+    } else if (menuNumber >= 1 && menuNumber <= 13) {
       await showCommandsForMenu(menuNumber, message);
     } else {
       await message.reply("Silakan pilih angka antara 1 hingga 12.");
     }
   } else if (message.body.toLowerCase() === "/about") {
     await showAbout(message);
+  } else if (message.body.startsWith("/command_lain")) {
+    await handleCommandLain(message);
   } else if (message.body.startsWith("/ingatkan_obat")) {
     const match = message.body.match(
       /^\/ingatkan_obat\s+(\S+)\s+(\d{2}:\d{2})$/
