@@ -22,7 +22,7 @@
 1. **Clone** repositori ini:
 
    ```bash
-   git clone https://github.com/username/Twalkcare.git
+   git clone https://github.com/Alhaiza/Twalkcare.git
    cd Twalkcare
    ```
 
@@ -35,7 +35,7 @@
 3. **Tambahkan API Key** ke .env file: Buat file .env di root proyek Anda dan tambahkan baris berikut:
 
    ```bash
-   GEMINI_API_KEY=Your_Gemini_AI_API_Key
+   GOOGLE_API_KEY=Your_Gemini_AI_API_Key
    ```
 
 4. **Inisialisasi Bot**:
